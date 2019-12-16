@@ -36,7 +36,7 @@ export const clearResults = () => {
 
 const limitRecipeTitle = (title, limit = 17) =>{
     if (title.length > limit){
-      let newTitle=  title.split('').splice(0,limit);
+      let newTitle = title.split('').splice(0,limit);
                                                             // Better solution func for cutting name of meal
       // Return New title
       return `${newTitle.join('')}...`;
