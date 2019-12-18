@@ -39,6 +39,7 @@ parseIngredients() {
 
     const unitsLong = ['tablespoons', 'tabelspoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
     const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+    const units = [...unitsShort, 'kg', 'g'];
     
     const newIngredients = this.ingredients.map(el => {
         // 1) Uniform units of data
@@ -49,16 +50,16 @@ parseIngredients() {
 
 
         // 2) Remove parentheses
-        ingredient = ingredient.replace(/ *\([^)]*\) */g, ' '); // remove parentheses
+        ingredient = ingredient.replace(/ *\([^)]*\) */g, ''); // remove parentheses
     
 
         // 3) Parse ingredients into count unit and ingredient
 
         const arrIng = ingredient.split(' ');
-        const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+        const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
 
-        let objIng;
+        let objIng = {};
 
         if (unitIndex > - 1) {
             // There is a unit
@@ -93,10 +94,20 @@ parseIngredients() {
             ingredient  // Es 6 let us putting variable into object as it is declared b4
          }   // There's no unit and no number at 1st possition of an arrey
         }
-        
+    
     return objIng;
     });
-
     this.ingredients = newIngredients;
 };
-    }
+
+    updateServings (type) {
+        //Servings
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+
+        //Ingredients
+        this.ingredients.forEach(ing => {
+            ing.count = ing.count * (newServings / this.servings);
+        });
+        this.servings = newServings;
+    };
+}
