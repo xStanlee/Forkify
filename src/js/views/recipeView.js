@@ -38,7 +38,7 @@ const createIngredient = ingredient =>
     </li>
     `
     ;
-export const renderRecipe = recipe => {
+export const renderRecipe = (recipe => {
     const markup = ` 
     <figure class="recipe__fig">
     <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img">
@@ -89,7 +89,7 @@ export const renderRecipe = recipe => {
         ${recipe.ingredients.map(el => createIngredient(el)).join(' ')}
     </ul>
 
-    <button class="btn-small recipe__btn">
+    <button class="btn-small recipe__btn recipe__btn--add">
         <svg class="search__icon">
             <use href="img/icons.svg#icon-shopping-cart"></use>
         </svg>
@@ -114,7 +114,7 @@ export const renderRecipe = recipe => {
     `;
 
     elements.recipe.insertAdjacentHTML('afterbegin', markup);
-};
+});
 
 export const updateServingsIngredients = recipe => {
     // Update servings
